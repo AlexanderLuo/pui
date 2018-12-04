@@ -1,0 +1,6 @@
+@import "mixins/mixins";
+
+@include b(aside) {
+  overflow: auto;
+  flex: 0 0 auto;
+}

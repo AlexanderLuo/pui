@@ -1,0 +1,11 @@
+@import "mixins/mixins";
+@import "common/var";
+
+@include b(header) {
+
+
+  flex: 0 0 auto;
+
+}
+
+
