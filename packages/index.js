@@ -8,7 +8,8 @@ import {
   Content as PContent,
   Footer as PFooter
 } from './container/index'
-
+import PInput from './input/index'
+import PRadio from './radio/index'
 
 const components = [
   PButton,
@@ -19,6 +20,8 @@ const components = [
   PContent,
   PHeader,
   PFooter,
+  PInput,
+  PRadio,
 ]
 
 const install = function(Vue) {
@@ -41,5 +44,7 @@ export default {
   PAside,
   PContent,
   PHeader,
-  PFooter
+  PFooter,
+  PInput,
+  PRadio,
 }

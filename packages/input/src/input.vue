@@ -1,97 +1,98 @@
 <template>
   <div :class="[
-    'el-input',
-    inputSize ? 'el-input--' + inputSize : '',
-
-    {
-      'is-disabled': inputDisabled,
-      'el-input-group': $slots.prepend || $slots.append,
-      'el-input-group--append': $slots.append,
-      'el-input-group--prepend': $slots.prepend,
-      'el-input--prefix': $slots.prefix || prefixIcon,
-      'el-input--suffix': $slots.suffix || suffixIcon || clearable
-    }
+    'p-input',
     ]"
-
-    @mouseenter="hovering = true"
-    @mouseleave="hovering = false"
   >
-
     <template>
-      <!-- 前置元素 -->
-      <div class="el-input-group__prepend" v-if="$slots.prepend">
-        <slot name="prepend"></slot>
-      </div>
-
-
       <input
-        :tabindex="tabindex"
-        class="el-input__inner"
+        class="p-input__inner"
         v-bind="$attrs"
         :type="type"
-        :disabled="inputDisabled"
-        :readonly="readonly"
-        :autocomplete="autoComplete || autocomplete"
         :value="nativeInputValue"
         ref="input"
+
         @compositionstart="handleComposition"
         @compositionupdate="handleComposition"
         @compositionend="handleComposition"
+
         @input="handleInput"
         @focus="handleFocus"
         @blur="handleBlur"
         @change="handleChange"
-        :aria-label="label"
       >
-
-      <!-- 前置内容 -->
-      <span class="el-input__prefix" v-if="$slots.prefix || prefixIcon">
-        <slot name="prefix"></slot>
-        <i class="el-input__icon"
-           v-if="prefixIcon"
-           :class="prefixIcon">
-        </i>
-      </span>
-
-
-      <!-- 后置内容 -->
-      <span class="el-input__suffix"
-        v-if="$slots.suffix || suffixIcon || showClear || validateState && needStatusIcon">
-
-        <span class="el-input__suffix-inner">
-          <template v-if="!showClear">
-            <slot name="suffix"></slot>
-            <i class="el-input__icon"
-              v-if="suffixIcon"
-              :class="suffixIcon">
-            </i>
-          </template>
-          <i v-else
-            class="el-input__icon el-icon-circle-close el-input__clear"
-            @click="clear"
-          ></i>
-        </span>
-
-        <i class="el-input__icon"
-          v-if="validateState"
-          :class="['el-input__validateIcon', validateIcon]">
-        </i>
-
-      </span>
-
-
-      <!-- 后置元素 -->
-      <div class="el-input-group__append" v-if="$slots.append">
-        <slot name="append"></slot>
-      </div>
     </template>
-
   </div>
 </template>
 
 <script>
 	export default {
-		name: "PInput"
+		name: "PInput",
+    props:{
+      type: {type: String, default: 'text'},
+      value: [String, Number],
+    },
+    data(){
+		  return {
+		    focused:false,
+        isOnComposition:false
+      }
+    },
+    computed:{
+		  nativeInputValue(){
+		    return this.value === null || this.value === undefined ? '' : this.value;
+      }
+    },
+    methods: {
+
+		  focus() {
+		    this.$refs.input.focus()
+		  },
+      handleFocus(){
+        this.focused = true;
+        this.$emit('focus', event);
+      },
+
+      blur() {
+		    this.$refs.input.blur()
+      },
+      handleBlur(event) {
+        this.focused = false;
+        this.$emit('blur', event);
+      },
+
+      handleComposition(event) {
+		    if (event.type === 'compositionstart') {
+		      this.isOnComposition = true;
+        }
+        if (event.type === 'compositionend') {
+          this.isOnComposition = false;
+          this.handleInput(event);
+        }
+      },
+
+
+      handleChange(event) {
+        this.$emit('change', event.target.value);
+      },
+
+      handleInput(event) {
+		    console.log(event.target.value )
+        // hack for https://github.com/ElemeFE/element/issues/8548
+        // should remove the following line when we don't support IE
+
+        if (event.target.value === this.nativeInputValue) return;
+        this.$emit('input', event.target.value);
+        // set input's value, in case parent refuses the change
+        // see: https://github.com/ElemeFE/element/issues/12850
+        // this.$nextTick(() => { this.$refs.input.value = this.value; });
+
+      },
+
+
+    },
+
+
+
 	}
 </script>
 

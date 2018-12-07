@@ -1,8 +1,8 @@
-import Col from './src/input';
+import PInput from './src/input';
 
 /* istanbul ignore next */
-Col.install = function(Vue) {
-  Vue.component(Col.name, Col);
+PInput.install = function(Vue) {
+  Vue.component(PInput.name, PInput);
 };
 
-export default Col;
+export default PInput;
