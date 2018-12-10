@@ -1,62 +1,56 @@
 <template>
 
-  <label
-    class="el-radio"
-    :class="[
-      border && radioSize ? 'el-radio--' + radioSize : '',
-      { 'is-disabled': isDisabled },
-      { 'is-focus': focus },
-      { 'is-bordered': border },
-      { 'is-checked': model === label }
-    ]"
-    role="radio"
-    :aria-checked="model === label"
-    :aria-disabled="isDisabled"
-    :tabindex="tabIndex"
-    @keydown.space.stop.prevent="model = isDisabled ? model : label"
-  >
 
-    <!--实现按钮-->
-    <span class="el-radio__input"
-      :class="{
-        'is-disabled': isDisabled,
-        'is-checked': model === label
-      }"
-    >
-      <!--按钮模拟-->
-      <span class="el-radio__inner"></span>
-      <!--做了隐藏-->
-      <input
-        class="el-radio__original"
-        :value="label"
-        type="radio"
-        aria-hidden="true"
-        v-model="model"
-        @focus="focus = true"
-        @blur="focus = false"
-        @change="handleChange"
-        :name="name"
-        :disabled="isDisabled"
-        tabindex="-1"
-      >
-    </span>
+  <label>
+    <input
+          class="el-radio__original"
+          :name="name"
+          :value="label"
+          type="radio"
+          @change="handleChange"
+          tabindex="-1"/>
 
 
-    <!--文字-->
+
+
+    <!--按钮后续插槽-->
     <span class="el-radio__label" @keydown.stop>
       <slot></slot>
       <template v-if="!$slots.default">{{label}}</template>
     </span>
-
-
   </label>
+
 
 </template>
 
 
 <script>
 	export default {
-		name: "PRadio"
+		name: "PRadio",
+    props:{
+		  label:{},
+      name:String,
+
+    },
+    data(){
+		  return {
+
+      }
+    },
+    computed:{
+		  isGroup(){
+		    let parent = this.$parent;
+		    if(parent.$options.name !== 'PRadioGroup'){
+		      return false
+        }
+        return true
+      }
+    },
+    methods:{
+		  handleChange() {
+
+      }
+    },
 	}
 </script>
 
