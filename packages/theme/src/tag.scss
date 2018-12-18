@@ -1,0 +1,42 @@
+@import "mixins/mixins";
+@import "common/var";
+
+
+@include b(tag) {
+  background-color: $--tag-fill;
+  display: inline-block;
+  padding: $--tag-padding;
+  height: 32px;
+  line-height: 30px;
+  font-size: $--tag-font-size;
+  color: $--tag-color;
+  border-radius: $--tag-border-radius;
+  box-sizing: border-box;
+  border: 1px solid $--tag-border;
+  white-space: nowrap;
+
+ .el-icon-close {
+    border-radius: 50%;
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+    font-size: 12px;
+    height: 16px;
+    width: 16px;
+    line-height: 16px;
+    vertical-align: middle;
+    top: -1px;
+    right: -5px;
+    color: $--tag-color;
+
+    &::before {
+      display: block;
+    }
+
+    &:hover {
+      background-color: $--tag-color;
+      color: $--color-white;
+    }
+  }
+
+}
