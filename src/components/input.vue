@@ -1,9 +1,9 @@
 <template>
-  <div>
 
-    <p-input placeholder="输入" v-model="msg"></p-input>
+  <p-col :span="4">
+    <p-input placeholder="输入" v-model="msg" prefix-icon="el-icon-info"></p-input>
     <div>{{msg}}</div>
-  </div>
+  </p-col>
 
 </template>
 
