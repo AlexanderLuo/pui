@@ -1,11 +1,13 @@
 <template>
   <div :class="[
     'p-input',
+    {'p-input--prefix': prefixIcon,}
     ]"
   >
     <template>
       <input
         class="p-input__inner"
+
         v-bind="$attrs"
         :type="type"
         :value="nativeInputValue"
@@ -20,7 +22,24 @@
         @blur="handleBlur"
         @change="handleChange"
       >
+
+
+      <!-- 前置内容 -->
+      <span class="p-input__prefix" v-if="prefixIcon">
+        <i class="p-input__icon" :class="prefixIcon"></i>
+      </span>
+
+      <!-- 后置内容 -->
+      <span class="el-input__suffix" v-if="suffixIcon || showClear">
+        <i class="el-input__icon" v-if="suffixIcon" :class="suffixIcon"></i>
+        <i v-else class="el-input__icon el-icon-circle-close el-input__clear" @click="clear"></i>
+      </span>
+
+
+
     </template>
+
+
   </div>
 </template>
 
@@ -28,8 +47,13 @@
 	export default {
 		name: "PInput",
     props:{
-      type: {type: String, default: 'text'},
       value: [String, Number],
+      type: {type: String, default: 'text'},
+
+      // 辅助项目
+      prefixIcon: String,
+      suffixIcon: String,
+      clearable: {type: Boolean, default: false},
     },
     data(){
 		  return {
@@ -40,7 +64,8 @@
     computed:{
 		  nativeInputValue(){
 		    return this.value === null || this.value === undefined ? '' : this.value;
-      }
+      },
+      showClear:{}
     },
     methods: {
 
@@ -97,5 +122,8 @@
 </script>
 
 <style scoped>
+  .el-input__prefix{
+    float: left;
+  }
 
 </style>
