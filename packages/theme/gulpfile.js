@@ -23,8 +23,8 @@ gulp.task('copyfont', function() {
 });
 
 
-
+gulp.task('build', ['compile', 'copyfont']);
 
 gulp.task('dev',function(){
-     gulp.watch('./src/**/*.scss',['compile']);
+     gulp.watch('./src/**/*.scss',['compile','copyfont']);
 });

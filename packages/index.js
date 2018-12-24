@@ -9,7 +9,8 @@ import {
   Footer as PFooter
 } from './container/index'
 import PInput from './input/index'
-import PRadio from './radio/index'
+import {PRadio,PRadioGroup} from './radio/index'
+import PTag from './tag/index'
 
 const components = [
   PButton,
@@ -22,6 +23,8 @@ const components = [
   PFooter,
   PInput,
   PRadio,
+  PRadioGroup,
+  PTag,
 ]
 
 const install = function(Vue) {
@@ -47,4 +50,6 @@ export default {
   PFooter,
   PInput,
   PRadio,
+  PRadioGroup,
+  PTag,
 }
