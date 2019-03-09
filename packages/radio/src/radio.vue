@@ -4,17 +4,16 @@
   <label>
     <input
           class="el-radio__original"
-          :name="name"
-          :value="label"
           type="radio"
-          @change="handleChange"
-          tabindex="-1"/>
-
+          :value="label"
+          v-model="model"
+          :name="name"
+          @change="handleChange"/>
 
 
 
     <!--按钮后续插槽-->
-    <span class="el-radio__label" @keydown.stop>
+    <span class="el-radio__label">
       <slot></slot>
       <template v-if="!$slots.default">{{label}}</template>
     </span>
@@ -28,6 +27,7 @@
 	export default {
 		name: "PRadio",
     props:{
+		  value:{},
 		  label:{},
       name:String,
 
@@ -43,12 +43,25 @@
 		    if(parent.$options.name !== 'PRadioGroup'){
 		      return false
         }
+        this._radioGroup = parent
         return true
+
+      },
+      model:{
+		    get(){
+		      return this.isGroup ? this._radioGroup.value : this.value;
+        },
+		    set(val){
+		      this.$emit('input',val)
+		    }
       }
     },
     methods:{
 		  handleChange() {
-
+        this.$nextTick(() => {
+          console.log(````````````````````````)
+          this.$emit('change', this.model)
+        })
       }
     },
 	}

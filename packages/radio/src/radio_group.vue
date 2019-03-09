@@ -9,14 +9,13 @@
 	export default {
 		name: "PRadioGroup",
     props:{
+		  value:{},
 		  disabled: Boolean
     },
     created(){
       this.$on('handleChange', value => {this.$emit('change', value)})
     },
-    mounted(){
-
-    },
+    mounted(){},
 	}
 </script>
 
